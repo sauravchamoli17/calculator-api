@@ -1,11 +1,12 @@
-// index.js
-const express = require('express');
+const app = require('express')();
 const cors = require('cors');
 const bodyParser = require('body-parser');
 
-const app = express();
+app.get('/api', (req, res) => {
+    res.setHeader('Content-Type', 'text/html');
+    res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+});
 
-// Middleware
 app.use(cors());
 app.use(bodyParser.json());
 
@@ -37,3 +38,5 @@ const port = process.env.PORT || 3000;
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
+
+module.exports = app;
